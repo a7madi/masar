@@ -1,7 +1,7 @@
 // ignore_for_file: unused_field, prefer_final_fields
 
 import 'package:masar/model/destination.dart';
-import 'package:masar/model/carrier.dart';
+import 'package:masar/model/transportaation_company.dart';
 import 'package:masar/model/trip_owner.dart';
 
 enum TripStatus { onging, finished, draft }
