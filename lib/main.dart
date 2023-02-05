@@ -18,7 +18,7 @@ class MyApp extends StatelessWidget {
       ),
       home: const HomePage(),
       routes: {
-        CreateTravelPage.routeName: (_)=> const CreateTravelPage(),
+        CreateTravelPage.routeName: (_)=>  CreateTravelPage(),
       },
     );
   }
