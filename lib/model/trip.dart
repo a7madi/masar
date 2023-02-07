@@ -12,17 +12,20 @@ class Trip {
   late TCompany _tCompany;
   late String _tripNumber;
   late TripStatus _tripStatus;
+  late int _numOfBuses; // the number of buses...
 
   Trip({
     required TripOwner tripOnwer,
     required TCompany tCompany,
     required List<Destiniation> tripList,
     TripStatus tripStatus =TripStatus.draft,
+    required int numberOfBuses,
   }) {
     _tCompany = tCompany;
     _tripList = tripList;
     _tripOwner = tripOnwer;
     _tripStatus = tripStatus;
+    _numOfBuses = numberOfBuses;
     _tripNumber = DateTime.now().toIso8601String(); // سيتم تغيير آلية إنشاء رقم الرحلة لاحقًا
   }
 }
