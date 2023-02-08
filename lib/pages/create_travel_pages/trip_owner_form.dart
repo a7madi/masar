@@ -6,7 +6,12 @@ class TripOwnerForm extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Center(child: Text('صفحة معلومات منسق الرحلة')),
+      body: Directionality(
+        textDirection: TextDirection.rtl,
+        child: Column(
+          children: [],
+        ),
+      ),
     );
   }
 }
