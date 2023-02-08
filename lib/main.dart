@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:masar/pages/create_travel_page.dart';
+import 'package:masar/pages/create_travel_pages/create_travel_page.dart';
 import 'package:masar/pages/home_page.dart';
 
 void main() {

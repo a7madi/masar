@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:masar/pages/create_travel_page.dart';
+import 'package:masar/pages/create_travel_pages/create_travel_page.dart';
 
 class HomePage extends StatelessWidget {
   const HomePage({super.key});
@@ -9,6 +9,7 @@ class HomePage extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         title: const Text('مـسـار'),
+        centerTitle: true,
       ),
       body: Center(
           child: (TextButton(
