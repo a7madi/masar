@@ -11,14 +11,14 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'Masar',
+      title: 'Masarak - مسارك',
       theme: ThemeData(
 
         primarySwatch: Colors.blue,
       ),
       home: const HomePage(),
       routes: {
-        CreateTravelPage.routeName: (_)=>  CreateTravelPage(),
+        CreateTravelPage.routeName: (_)=> const CreateTravelPage(),
       },
     );
   }
