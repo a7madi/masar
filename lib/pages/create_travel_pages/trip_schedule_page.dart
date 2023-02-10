@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:syncfusion_flutter_datepicker/datepicker.dart';
+import 'package:masar/pages/create_travel_pages/widgets/form_text_field_widget.dart';
+import 'package:date_time_picker/date_time_picker.dart';
 
 class TripScheduleForm extends StatefulWidget {
   const TripScheduleForm({super.key});
@@ -9,16 +10,50 @@ class TripScheduleForm extends StatefulWidget {
 }
 
 class _TripScheduleFormState extends State<TripScheduleForm> {
-    var _pickedDate = '';
-
+  var _pickedDate = '';
+  final _formKey = GlobalKey<FormState>();
+  final _txtCntPickupLocation = TextEditingController();
+  final _txtCntDropLocation = TextEditingController();
   @override
   Widget build(BuildContext context) {
-    return const Scaffold(
-      body: Center(child: Text('صفحة نموذج جدول الرحلة')),
+    return Scaffold(
+      body: Directionality(
+          textDirection: TextDirection.rtl,
+          child: Form(
+            key: _formKey,
+            child: Column(
+              children: [
+                TxtFormField(
+                    textLable: 'نقطة التحميل', textController: _txtCntPickupLocation,maxInputDigits: 50,),
+                TxtFormField(
+                    textLable: 'نقطة التنزيل', textController: _txtCntDropLocation,maxInputDigits: 50,),
+                    _dateTimePicker(),
+
+                    TextButton(onPressed: (){}, child: const Text('أضف الوجهة')),
+              ],
+            ),
+          )),
     );
   }
 
-Card _destinationCard() {
+  Padding _dateTimePicker() {
+    return Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: DateTimePicker(dateMask: 'd MMM, yyyy',
+                    type: DateTimePickerType.dateTimeSeparate,
+                    initialDate: DateTime.now(),
+                    firstDate: DateTime.now(),
+                    lastDate: DateTime.now().add(const Duration(days: 365),),
+                      icon: const Icon(Icons.event),
+                    dateLabelText: 'حدد اليوم',
+                    dateHintText: 'حدد اليوم',
+                    timeHintText: 'حدد الوقت',
+                    onSaved: (value) => _pickedDate = value!,
+                    ),
+                  );
+  }
+
+  Card _destinationCard() {
     return Card(
       child: ListTile(
         title: Column(
@@ -41,58 +76,5 @@ Card _destinationCard() {
       ),
     );
   }
-  Row _datePicker(BuildContext context) {
-    final outlineborder = OutlineInputBorder(
-        borderSide: const BorderSide(width: 1.5),
-        borderRadius: BorderRadius.circular(4));
-    return Row(
-      children: [
-        TextButton(
-          onPressed: () {
-            showDialog(
-              context: context,
-              builder: (ctx) => AlertDialog(
-                title: const Text('اختر اليوم'),
-                actions: [
-                  TextButton(
-                      onPressed: () {
-                        Navigator.of(context).pop();
-                      },
-                      child: const Text('اعتمد الوقت')),
-                ],
-                content: SizedBox(
-                  height: 250,
-                  width: 500,
-                  child: SfDateRangePicker(
-                    onSelectionChanged: (v) {
-                      setState(() {
-                        _pickedDate = v.value
-                            .toString()
-                            .substring(0, 10)
-                            .replaceAll('-', '/');
-                      });
-                    },
-                  ),
-                ),
-              ),
-            );
-          },
-          child: const Text('اختر اليوم'),
-        ),
-        SizedBox(
-            width: 160,
-            height: 35,
-            child: TextField(
-              readOnly: true,
-              decoration: InputDecoration(
-                  hintText: _pickedDate.isEmpty? 'لم يتم تحديد اليوم بعد':_pickedDate,
-                  hintStyle: const TextStyle(
-                    color: Colors.black,
-                  ),
-                  enabledBorder: outlineborder,
-                  focusedBorder: outlineborder),
-            )),
-      ],
-    );
-  }
+
 }
