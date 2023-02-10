@@ -12,8 +12,6 @@ dependencies:
   flutter:
     sdk: flutter
   
-  date_time_picker: ^2.1.0
-
   cupertino_icons: ^1.0.2
 
 dev_dependencies:
