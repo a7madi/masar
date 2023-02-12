@@ -76,7 +76,7 @@ class _TripScheduleFormState extends State<TripScheduleForm> {
                 .then((_) => _setDate())
                 .then((_) => _setTime())
                 .then(
-                  (_) => _setPickedDate(),
+                  (_) => _upadteTxtCntDateTime(),
                 );
           },
           child: const Text('حدد التاريخ والوقت'),
@@ -120,7 +120,7 @@ class _TripScheduleFormState extends State<TripScheduleForm> {
     });
   }
 
-  void _setPickedDate() {
+  void _upadteTxtCntDateTime() {
     setState(() {
       _txtCntDateTime.text = '${(_time.hour > 9) ? _time.hour : '0' '${_time.hour}'}:${(_time.minute > 9) ? _time.minute : '0' '${_time.minute}'} - ${_date.toString().substring(0, 10).replaceAll('-', '/')}';
     });
