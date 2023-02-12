@@ -10,4 +10,13 @@ class Destiniation{
     _dropPoint = dropPoint;
     _travelDate = travelDate;
   }
+  String getPickupLocation(){
+    return _pickPoint;
+  }
+  String getDropLocation(){
+    return _dropPoint;
+  }
+  DateTime getDate(){
+    return _travelDate;
+  }
 }

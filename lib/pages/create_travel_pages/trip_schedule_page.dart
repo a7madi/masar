@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:masar/model/destination.dart';
 import 'package:masar/pages/create_travel_pages/widgets/form_text_field_widget.dart';
 
 class TripScheduleForm extends StatefulWidget {
@@ -10,12 +11,12 @@ class TripScheduleForm extends StatefulWidget {
 
 class _TripScheduleFormState extends State<TripScheduleForm> {
   DateTime _date = DateTime.now();
-  var _pickedDate = '';
   TimeOfDay _time = const TimeOfDay(hour: 0, minute: 0);
   final _txtCntDateTime = TextEditingController();
   final _formKey = GlobalKey<FormState>();
   final _txtCntPickupLocation = TextEditingController();
   final _txtCntDropLocation = TextEditingController();
+  final List<Destiniation> _dList = [];
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -36,7 +37,30 @@ class _TripScheduleFormState extends State<TripScheduleForm> {
                   maxInputDigits: 50,
                 ),
                 _dateTimePicker(),
-                TextButton(onPressed: () {}, child: const Text('أضف الوجهة')),
+                TextButton(
+                    onPressed: () {
+                      setState(() {
+                        _dList.add(
+                          Destiniation(
+                            pickPoint: _txtCntPickupLocation.text,
+                            dropPoint: _txtCntDropLocation.text,
+                            travelDate: DateTime(_date.year, _date.month,
+                                _date.day, _time.hour, _time.minute),
+                          ),
+                        );
+                      });
+                    },
+                    child: const Text('أضف الوجهة')),
+                Expanded(
+                    child: ListView.builder(
+                        itemCount: _dList.length,
+                        itemBuilder: (ctx, i) {
+                          return _destinationCard(
+                              pickup: _dList[i].getPickupLocation(),
+                              drop: _dList[i].getDropLocation(),
+                              date: _dList[i].getDate(),
+                              index: i);
+                        }))
               ],
             ),
           )),
@@ -97,29 +121,36 @@ class _TripScheduleFormState extends State<TripScheduleForm> {
   }
 
   void _setPickedDate() {
-    _pickedDate = '${(_time.hour > 9) ? _time.hour : '0' '${_time.hour}'}:${(_time.minute > 9) ? _time.minute : '0' '${_time.minute}'} - ${_date.toString().substring(0, 10).replaceAll('-', '/')}';
-
     setState(() {
-      _txtCntDateTime.text = _pickedDate;
+      _txtCntDateTime.text = '${(_time.hour > 9) ? _time.hour : '0' '${_time.hour}'}:${(_time.minute > 9) ? _time.minute : '0' '${_time.minute}'} - ${_date.toString().substring(0, 10).replaceAll('-', '/')}';
     });
   }
 
-  Card _destinationCard() {
+  Card _destinationCard({
+    required String pickup,
+    required String drop,
+    required DateTime date, required int index,
+  }) {
     return Card(
       child: ListTile(
         title: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
-          children: const <Widget>[
-            Text('نقطة التحميل: فندق مكة المكرمة'),
+          children: <Widget>[
+            Text('نقطة التحميل: $pickup'),
             // SizedBox(
             //   width: 2,
             // ),
-            Text('الوجهة: مزارات مكة جعرانة')
+            Text('الوجهة: $drop')
           ],
         ),
-        subtitle: const Text('التاريخ: 2023/02/11'),
+        subtitle: Text(
+            'التاريخ - الوقت: ${date.toString().substring(0, 10).replaceAll('-', '/')} - ${(date.hour > 9) ? date.hour : '0' '${date.hour}'}:${(date.minute > 9) ? date.minute : '0' '${date.minute}'}'),
         leading: IconButton(
-            onPressed: () {},
+            onPressed: () {
+              setState(() {
+                _dList.removeAt(index);
+              });
+            },
             icon: const Icon(
               Icons.delete,
               color: Colors.red,
