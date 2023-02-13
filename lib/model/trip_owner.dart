@@ -1,5 +1,16 @@
-class TripOwner{
-  final String name;
-  final String phoneNumber;
-  TripOwner({required this.name, required this.phoneNumber});
+class TripOwner {
+  late final String _name;
+  late final String _phoneNumber;
+  TripOwner({required String name, required String phoneNumber}) {
+    _name = name;
+    _phoneNumber = phoneNumber;
+  }
+
+  String get name {
+    return _name;
+  }
+
+  String get phoneNumber {
+    return _phoneNumber;
+  }
 }
