@@ -17,6 +17,18 @@ class TripDetailsProvider with ChangeNotifier {
     );
   }
 
+  List<Destiniation> get currentTripDestiniations {
+    return _newTrip.destiniations;
+  }
+
+  TripOwner get currentTripOwner {
+    return _newTrip.tripOwner;
+  }
+
+  TCompany get currentTCompany {
+    return _newTrip.tCompany;
+  }
+
   void setTripOwner(TripOwner tripOwner) {
     _newTrip = Trip(
       tripOwner: tripOwner,
@@ -26,12 +38,13 @@ class TripDetailsProvider with ChangeNotifier {
     notifyListeners();
   }
 
-  void setDestinations(List<Destiniation> destinations) {
-    _newTrip = Trip(
-      tripOwner: _newTrip.tripOwner,
-      tCompany: _newTrip.tCompany,
-      destinations: destinations,
-    );
+  void addDestination(Destiniation destination) {
+    _newTrip.addDestination(destination);
+    notifyListeners();
+  }
+
+  void removeDestinitaion(String desID) {
+    _newTrip.removeDestinitaion(desID);
     notifyListeners();
   }
 

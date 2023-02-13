@@ -27,9 +27,16 @@ class Trip {
         .toIso8601String(); // سيتم تغيير آلية إنشاء رقم الرحلة لاحقًا
   }
 
-
   void updateTripStatus(TripStatus newTripsStatus) {
     _tripStatus = newTripsStatus;
+  }
+
+  void addDestination(Destiniation destiniation) {
+    _destinations.add(destiniation);
+  }
+
+  void removeDestinitaion(String desID) {
+    _destinations.removeWhere((des) => des.desID == desID);
   }
 
   List<Destiniation> get destiniations {

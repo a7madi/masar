@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:masar/model/destination.dart';
 import 'package:masar/pages/create_travel_pages/widgets/form_text_field_widget.dart';
+import 'package:provider/provider.dart';
+import '../../provider/trip_details_provider.dart';
 
 class TripScheduleForm extends StatefulWidget {
   const TripScheduleForm({super.key});
@@ -19,6 +21,10 @@ class _TripScheduleFormState extends State<TripScheduleForm> {
   final List<Destiniation> _dList = [];
   @override
   Widget build(BuildContext context) {
+    // ignore: unused_local_variable
+    final providerData =
+        Provider.of<TripDetailsProvider>(context, listen: true);
+    final destiniations = providerData.currentTripDestiniations;
     return Scaffold(
       body: Directionality(
           textDirection: TextDirection.rtl,
@@ -39,28 +45,28 @@ class _TripScheduleFormState extends State<TripScheduleForm> {
                 _dateTimePicker(),
                 TextButton(
                     onPressed: () {
-                      setState(() {
-                        _dList.add(
-                          Destiniation(
-                            pickPoint: _txtCntPickupLocation.text,
-                            dropPoint: _txtCntDropLocation.text,
-                            travelDate: DateTime(_date.year, _date.month,
-                                _date.day, _time.hour, _time.minute),
-                          ),
-                        );
-                      });
+                      String desID =  DateTime.now().toIso8601String();
+                      providerData.addDestination(Destiniation(
+                        id: desID,
+                        pickPoint: _txtCntPickupLocation.text,
+                        dropPoint: _txtCntDropLocation.text,
+                        travelDate: DateTime(_date.year, _date.month, _date.day,
+                            _time.hour, _time.minute),
+                      ));
                     },
                     child: const Text('أضف الوجهة')),
-                Expanded(
-                    child: ListView.builder(
-                        itemCount: _dList.length,
-                        itemBuilder: (ctx, i) {
-                          return _destinationCard(
-                              pickup: _dList[i].getPickupLocation(),
-                              drop: _dList[i].getDropLocation(),
-                              date: _dList[i].getDate(),
-                              index: i);
-                        }))
+                if (destiniations.isNotEmpty)
+                  Expanded(
+                      child: ListView.builder(
+                          itemCount: destiniations.length,
+                          itemBuilder: (ctx, i) {
+                            return _destinationCard(
+                                pickup: destiniations[i].pickupLocation,
+                                drop: destiniations[i].dropLocation,
+                                date: destiniations[i].date,
+                                id: destiniations[i].desID,
+                               );
+                          }))
               ],
             ),
           )),
@@ -122,15 +128,18 @@ class _TripScheduleFormState extends State<TripScheduleForm> {
 
   void _upadteTxtCntDateTime() {
     setState(() {
-      _txtCntDateTime.text = '${(_time.hour > 9) ? _time.hour : '0' '${_time.hour}'}:${(_time.minute > 9) ? _time.minute : '0' '${_time.minute}'} - ${_date.toString().substring(0, 10).replaceAll('-', '/')}';
+      _txtCntDateTime.text =
+          '${(_time.hour > 9) ? _time.hour : '0' '${_time.hour}'}:${(_time.minute > 9) ? _time.minute : '0' '${_time.minute}'} - ${_date.toString().substring(0, 10).replaceAll('-', '/')}';
     });
   }
 
   Card _destinationCard({
     required String pickup,
     required String drop,
-    required DateTime date, required int index,
+    required DateTime date,
+    required String id,
   }) {
+    final destiniationProvider = Provider.of<TripDetailsProvider>(context,listen: false);
     return Card(
       child: ListTile(
         title: Column(
@@ -147,9 +156,7 @@ class _TripScheduleFormState extends State<TripScheduleForm> {
             'التاريخ - الوقت: ${date.toString().substring(0, 10).replaceAll('-', '/')} - ${(date.hour > 9) ? date.hour : '0' '${date.hour}'}:${(date.minute > 9) ? date.minute : '0' '${date.minute}'}'),
         leading: IconButton(
             onPressed: () {
-              setState(() {
-                _dList.removeAt(index);
-              });
+              destiniationProvider.removeDestinitaion(id);
             },
             icon: const Icon(
               Icons.delete,
