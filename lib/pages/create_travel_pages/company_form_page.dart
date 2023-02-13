@@ -36,8 +36,10 @@ class CompanyFormPage extends StatelessWidget {
                     isMandatoryField: true),
                 TextButton(
                     onPressed: () {
-                      var valid =_formKey.currentState!.validate();
-                      if(!valid){return;}
+                      var valid = _formKey.currentState!.validate();
+                      if (!valid) {
+                        return;
+                      }
                       var transportComp = tc.TCompany(
                           name: _txtCntTrvlComp.text,
                           numberOfBuses: int.parse(_txtNumBuses.text));

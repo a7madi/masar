@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:masar/pages/create_travel_pages/company_form_pages.dart';
 import 'package:masar/pages/create_travel_pages/trip_owner_form.dart';
 import 'package:masar/pages/create_travel_pages/trip_schedule_page.dart';
+import 'package:provider/provider.dart';
+import '../../provider/trip_details_provider.dart';
 
 class CreateTravelPage extends StatefulWidget {
   const CreateTravelPage({super.key});
@@ -12,11 +14,11 @@ class CreateTravelPage extends StatefulWidget {
 }
 
 class _CreateTravelPageState extends State<CreateTravelPage> {
-  
-
-
   @override
   Widget build(BuildContext context) {
+    final providerData =
+        Provider.of<TripDetailsProvider>(context, listen: false);
+    providerData.initializeNewTrip();
     return DefaultTabController(
       length: 3,
       initialIndex: 2,
@@ -25,13 +27,22 @@ class _CreateTravelPageState extends State<CreateTravelPage> {
           title: const Text('إنشاء رحلة جديدة'),
           centerTitle: true,
           bottom: const TabBar(tabs: [
-            Tab(child: Text('منسق الرحلة'),),
-            Tab(child: Text('جدول الرحلة'),),
-            
-            Tab(child: Text('بيانات الشركة'),),
+            Tab(
+              child: Text('منسق الرحلة'),
+            ),
+            Tab(
+              child: Text('جدول الرحلة'),
+            ),
+            Tab(
+              child: Text('بيانات الشركة'),
+            ),
           ]),
         ),
-        body: TabBarView(children: <Widget>[ TripOwnerForm(),const TripScheduleForm(), CompanyFormPage(),]),
+        body: TabBarView(children: <Widget>[
+          TripOwnerForm(),
+          const TripScheduleForm(),
+          CompanyFormPage(),
+        ]),
       ),
     );
   }
