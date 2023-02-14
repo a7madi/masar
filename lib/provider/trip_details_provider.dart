@@ -36,7 +36,9 @@ class TripDetailsProvider with ChangeNotifier {
   TCompany get currentTCompany {
     return _newTrip.tCompany;
   }
-
+Trip get trip{
+  return _newTrip;
+}
   void setTripOwner(TripOwner tripOwner) {
     _newTrip = Trip(
       tripOwner: tripOwner,
