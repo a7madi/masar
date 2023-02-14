@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:masar/pages/create_travel_pages/company_form_pages.dart';
-import 'package:masar/pages/create_travel_pages/trip_owner_form.dart';
+import 'package:masar/pages/create_travel_pages/company_form_page.dart';
+import 'package:masar/pages/create_travel_pages/trip_owner_form_page.dart';
 import 'package:masar/pages/create_travel_pages/trip_schedule_page.dart';
 import 'package:provider/provider.dart';
 import '../../provider/trip_details_provider.dart';

@@ -1,8 +1,11 @@
 // ignore_for_file: avoid_print
 
 import 'package:flutter/material.dart';
+import 'package:masar/model/transportation_company.dart';
 import 'package:masar/pages/create_travel_pages/widgets/form_text_field_widget.dart';
-import '../../model/transportation_company.dart' as tc;
+import 'package:masar/pages/create_travel_pages/widgets/info_card_widget.dart';
+import 'package:provider/provider.dart';
+import '../../provider/trip_details_provider.dart';
 
 class CompanyFormPage extends StatelessWidget {
   CompanyFormPage({super.key});
@@ -16,6 +19,7 @@ class CompanyFormPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final dp = Provider.of<TripDetailsProvider>(context, listen: true);
     return Scaffold(
       body: Directionality(
         textDirection: TextDirection.rtl,
@@ -40,11 +44,21 @@ class CompanyFormPage extends StatelessWidget {
                       if (!valid) {
                         return;
                       }
-                      var transportComp = tc.TCompany(
-                          name: _txtCntTrvlComp.text,
-                          numberOfBuses: int.parse(_txtNumBuses.text));
+                      dp.setTransportCompany(TCompany(
+                        name: _txtCntTrvlComp.text,
+                        numberOfBuses: int.parse(_txtNumBuses.text),
+                      ));
                     },
-                    child: const Text('حفظ بيانات شركة النقل'))
+                    child: const Text('حفظ بيانات شركة النقل')),
+                if (dp.currentTCompany.companyName.isNotEmpty &&
+                    dp.currentTCompany.numberOfBuses > 0)
+                  InfoCard(
+                    title1Value: dp.currentTCompany.companyName,
+                      title1:'اسم الشركة' ,
+                      title2: 'عدد الحافلات',
+                      title2Value:
+                          dp.currentTCompany.numberOfBuses.toString(),
+                      onPressed: dp.resetTCompany)
               ],
             ),
           ),

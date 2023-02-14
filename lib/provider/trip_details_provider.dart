@@ -48,6 +48,22 @@ class TripDetailsProvider with ChangeNotifier {
     notifyListeners();
   }
 
+  void resetTripOwner(){
+   _newTrip = Trip(
+      tripOwner: TripOwner(name: '', phoneNumber: ''),
+      tCompany: _newTrip.tCompany,
+      destinations: _newTrip.destiniations,
+    );
+    notifyListeners();
+  }
+void resetTCompany(){
+  _newTrip = Trip(
+      tripOwner: _newTrip.tripOwner,
+      tCompany: TCompany(name: '',numberOfBuses: 0),
+      destinations: _newTrip.destiniations,
+    );
+    notifyListeners();
+}
   void setTransportCompany(TCompany tCompany) {
     _newTrip = Trip(
       tripOwner: _newTrip.tripOwner,

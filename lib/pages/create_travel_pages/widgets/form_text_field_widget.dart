@@ -52,8 +52,8 @@ class TxtFormField extends StatelessWidget {
           if (_isPhoneKey && (length! > 9 || length < 9)) {
             return 'رقم الجوال لا يمكن أن يكون أقل/أكثر من 9 أرقام';
           }
-          if(_isPhoneKey && value[0]=='0'){
-            return 'الرقم يجب أن يبدأ ب5 وليس 0';
+          if(_isPhoneKey && value[0]!='5'){
+            return 'الرقم يجب أن يبدأ ب5';
           }
           return null;
         },

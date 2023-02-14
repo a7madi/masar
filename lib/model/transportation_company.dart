@@ -10,10 +10,10 @@ class TCompany{
     _name = name;
     _numOfBuses = numberOfBuses;
   }
-String companyName(){
+String get companyName{
   return _name;
 }
-int numberOfBuses(){
+int get numberOfBuses{
   return _numOfBuses;
 }
 }
