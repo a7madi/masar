@@ -1,37 +1,28 @@
-// import 'dart:html';
-import 'dart:io';
-import 'package:open_file/open_file.dart';
-import 'package:path_provider/path_provider.dart';
-import 'package:pdf/widgets.dart';
-import 'trip.dart';
 
-class PDF {
-  late final Trip _trip;
+import 'package:flutter/services.dart';
+import 'package:pdf/widgets.dart' as pw;
+import 'package:printing/printing.dart';
 
-  PDF(Trip trip) {
-    _trip = trip;
-  }
-  Future<void> createPdf() async {
-    var pdf = Document();
-    pdf.addPage(
-      Page(build: (ctx) {
-        return Center(child: Text('Masar',style: TextStyle(font: Font.helvetica())));
-      }),
-    );
-    final file = await _savedDocument(name: 'masar.pdf', pdf: pdf);
-    _openFile(file);
-  }
+class PDFFileGenerator {
+  Future<void> createPDF() async {
+    final pdf = pw.Document();
 
-  Future _openFile(File file) async {
-    final filePath = file.path;
-    await OpenFile.open(filePath);
-  }
+    // Load a custom font from assets
+    final fontData = await rootBundle.load('asset/fonts/Tajawal-Regular.ttf');
+    final ttf = pw.Font.ttf(fontData);
 
-  Future<File> _savedDocument(
-      {required String name, required Document pdf}) async {
-    final bytes = await pdf.save();
-    final dir = await getApplicationSupportDirectory();
-    final file = File('${dir.path}/$name');
-    return file;
+    // Set the custom font as the default font for the document
+    pdf.addPage(pw.Page(
+      theme: pw.ThemeData.withFont(base: ttf),
+      build: (pw.Context context) => pw.Directionality(
+        textDirection: pw.TextDirection.rtl,
+        child: pw.Center(
+          child: pw.Text('مرحبا!', style:const pw.TextStyle(fontSize: 50)),
+        ),
+      ),
+    ));
+
+    Uint8List bytes = await pdf.save();
+    Printing.sharePdf(bytes: bytes, filename: 'masar_trip_file.pdf');
   }
 }
