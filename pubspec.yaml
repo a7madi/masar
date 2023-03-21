@@ -16,7 +16,7 @@ dependencies:
   open_file: ^3.2.1
   printing: ^5.10.1
   cupertino_icons: ^1.0.2
-  pdf: ^3.9.0
+  pdf: ^3.8.3
 
 dev_dependencies:
   flutter_test:
@@ -49,6 +49,10 @@ flutter:
     - family: tajawal
       fonts:
         - asset: asset/fonts/Tajawal-Regular.ttf
+
+    - family: IBMPlexSansArabic
+      fonts:
+        - asset: asset/fonts/IBMPlexSansArabic-Regular.ttf
   #       - asset: fonts/Schyler-Italic.ttf
   #         style: italic
   #   - family: Trajan Pro
