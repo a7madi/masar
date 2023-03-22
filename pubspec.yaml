@@ -46,10 +46,6 @@ flutter:
   # list giving the asset and other descriptors for the font. For
   # example:
   fonts:
-    - family: tajawal
-      fonts:
-        - asset: asset/fonts/Tajawal-Regular.ttf
-
     - family: IBMPlexSansArabic
       fonts:
         - asset: asset/fonts/IBMPlexSansArabic-Regular.ttf
