@@ -26,7 +26,7 @@ class TripDetailsProvider with ChangeNotifier {
   }
 
   List<Destiniation> get currentTripDestiniations {
-    return _newTrip.destiniations;
+    return _newTrip.destinations;
   }
 
   TripOwner get currentTripOwner {
@@ -36,14 +36,16 @@ class TripDetailsProvider with ChangeNotifier {
   TCompany get currentTCompany {
     return _newTrip.tCompany;
   }
-Trip get trip{
-  return _newTrip;
-}
+
+  Trip get trip {
+    return _newTrip;
+  }
+
   void setTripOwner(TripOwner tripOwner) {
     _newTrip = Trip(
       tripOwner: tripOwner,
       tCompany: _newTrip.tCompany,
-      destinations: _newTrip.destiniations,
+      destinations: _newTrip.destinations,
     );
     notifyListeners();
   }
@@ -57,7 +59,7 @@ Trip get trip{
 
   void removeDestinitaion(String desID) {
     _newTrip.removeDestinitaion(desID);
-    if (_newTrip.destiniations.isEmpty) _isTSReady = false;
+    if (_newTrip.destinations.isEmpty) _isTSReady = false;
     updateIfTripReady();
     notifyListeners();
   }
@@ -77,7 +79,7 @@ Trip get trip{
     _newTrip = Trip(
       tripOwner: TripOwner(name: '', phoneNumber: ''),
       tCompany: _newTrip.tCompany,
-      destinations: _newTrip.destiniations,
+      destinations: _newTrip.destinations,
     );
     _isTOReady = false;
     updateIfTripReady();
@@ -88,7 +90,7 @@ Trip get trip{
     _newTrip = Trip(
       tripOwner: _newTrip.tripOwner,
       tCompany: TCompany(name: '', numberOfBuses: 0),
-      destinations: _newTrip.destiniations,
+      destinations: _newTrip.destinations,
     );
     _isTCReady = false;
     updateIfTripReady();
@@ -99,7 +101,7 @@ Trip get trip{
     _newTrip = Trip(
       tripOwner: _newTrip.tripOwner,
       tCompany: tCompany,
-      destinations: _newTrip.destiniations,
+      destinations: _newTrip.destinations,
     );
     _isTCReady = true;
     updateIfTripReady();

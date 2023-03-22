@@ -39,7 +39,7 @@ class Trip {
     _destinations.removeWhere((des) => des.desID == desID);
   }
 
-  List<Destiniation> get destiniations {
+  List<Destiniation> get destinations {
     return [..._destinations];
   }
 
