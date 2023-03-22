@@ -3,7 +3,6 @@ import 'package:flutter/services.dart';
 import 'package:pdf/widgets.dart' as pw;
 import 'package:printing/printing.dart';
 import 'package:provider/provider.dart';
-import '../provider/trip_details_provider.dart' as dp;
 import '../provider/trip_details_provider.dart';
 
 class PDFFileGenerator {
@@ -74,7 +73,7 @@ class PDFFileGenerator {
     final destinations =
         Provider.of<TripDetailsProvider>(_ctx, listen: false).trip.destinations;
     List<List<String>> data = [
-      ['نقطة التحميل', 'الوجهة', 'التاريخ - الوقت'].reversed.toList(),
+      ['نقطة التحميل', 'الوجهة', 'الوقت - التاريخ'].reversed.toList(),
     ];
     for (var d in destinations) {
       data.add([
