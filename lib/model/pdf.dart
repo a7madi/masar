@@ -1,25 +1,35 @@
+import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:pdf/widgets.dart' as pw;
 import 'package:printing/printing.dart';
+import 'package:provider/provider.dart';
+import '../provider/trip_details_provider.dart' as dp;
+import '../provider/trip_details_provider.dart';
 
 class PDFFileGenerator {
+  late final BuildContext _ctx;
+  PDFFileGenerator(BuildContext ctx) {
+    _ctx = ctx;
+  }
   Future<void> createPDF() async {
     final pdf = pw.Document();
-    const font1Path = 'asset/fonts/Tajawal-Regular.ttf';
-    const font2Path = 'asset/fonts/IBMPlexSansArabic-Regular.ttf';
+    const fontPath = 'asset/fonts/IBMPlexSansArabic-Regular.ttf';
     // Load a custom font from assets
-    final fontData = await rootBundle.load(font2Path);
+    final fontData = await rootBundle.load(fontPath);
     final ttf = pw.Font.ttf(fontData);
 
-    // Set the custom font as the default font for the document
     pdf.addPage(pw.Page(
       theme: pw.ThemeData.withFont(base: ttf),
       build: (pw.Context context) => pw.Directionality(
         textDirection: pw.TextDirection.rtl,
         child: pw.Column(
+          crossAxisAlignment: pw.CrossAxisAlignment.end,
           children: [
-            pw.Text('خط السير', style: pw.TextStyle(fontSize: 20)),
-            _tripTable(fontData)
+            _letter(),
+            pw.SizedBox(height: 25),
+            _tripTable(fontData),
+            pw.SizedBox(height: 25),
+            _tripOwner(),
           ],
         ),
       ),
@@ -29,17 +39,50 @@ class PDFFileGenerator {
     Printing.sharePdf(bytes: bytes, filename: 'masar_trip_file.pdf');
   }
 
+  pw.Widget _letter() {
+    final company =
+        Provider.of<TripDetailsProvider>(_ctx, listen: false).currentTCompany;
+    return pw.Column(crossAxisAlignment: pw.CrossAxisAlignment.end, children: [
+      pw.Text('سعادة المسؤول عن اعتماد خط السير بـ${company.companyName}'),
+      pw.Text('السلام عليكم ورحمة الله وبركاته'),
+      pw.Text(
+          'بعد التحية آمل من سعادتكم إعتماد خط السير حسب الجدول التالي وتوفير عدد (${company.numberOfBuses}) حافلة لنقل الركاب'),
+    ]);
+  }
+
+  pw.Widget _tripOwner() {
+    final tripOwner =
+        Provider.of<TripDetailsProvider>(_ctx, listen: false).currentTripOwner;
+
+    return pw.Column(crossAxisAlignment: pw.CrossAxisAlignment.end, children: [
+      pw.RichText(
+        text: pw.TextSpan(children: [
+          const pw.TextSpan(text: 'مسؤول الرحلة: '),
+          pw.TextSpan(text: '${tripOwner.name} '),
+        ]),
+      ),
+      pw.RichText(
+        text: pw.TextSpan(children: [
+          const pw.TextSpan(text: 'رقم الجوال: '),
+          pw.TextSpan(text: '${tripOwner.phoneNumber} '),
+        ]),
+      ),
+    ]);
+  }
+
   pw.Widget _tripTable(ByteData headerFont) {
+    final destinations =
+        Provider.of<TripDetailsProvider>(_ctx, listen: false).trip.destinations;
     List<List<String>> data = [
       ['نقطة التحميل', 'الوجهة', 'التاريخ - الوقت'].reversed.toList(),
-      ['مطار جدة الدولي', 'فندق جراند مكة', '2023/03/21 - 17:00']
-          .reversed
-          .toList(),
-      ['فندق جراند مكة', 'مزارات مكة - جعرانة', '2023/03/22 - 12:00']
-          .reversed
-          .toList(),
     ];
-
+    for (var d in destinations) {
+      data.add([
+        d.pickupLocation,
+        d.dropLocation,
+        '${d.date.toString().substring(0, 10).replaceAll('-', '/')} - ${(d.date.hour > 9) ? d.date.hour : '0' '${d.date.hour}'}:${(d.date.minute > 9) ? d.date.minute : '0' '${d.date.minute}'}'
+      ].reversed.toList());
+    }
     return pw.Directionality(
         textDirection: pw.TextDirection.rtl,
         child: pw.Table.fromTextArray(
