@@ -21,7 +21,7 @@ class SaveBtn extends StatelessWidget {
             style: TextStyle(color: Colors.white),
           ),
           onPressed: () async {
-            await PDFFileGenerator().createPDF();
+            await PDFFileGenerator(context).createPDF();
           },
         ));
   }
