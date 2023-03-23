@@ -1,5 +1,9 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:open_file/open_file.dart';
+import 'package:path_provider/path_provider.dart';
 import 'package:pdf/widgets.dart' as pw;
 import 'package:printing/printing.dart';
 import 'package:provider/provider.dart';
@@ -35,7 +39,15 @@ class PDFFileGenerator {
     ));
 
     Uint8List bytes = await pdf.save();
-    Printing.sharePdf(bytes: bytes, filename: 'masar_trip_file.pdf');
+    await _saveAndOpen('masar_trip_file.pdf', bytes);
+    // Printing.sharePdf(bytes: bytes, filename: 'masar_trip_file.pdf');
+  }
+
+  Future<void> _saveAndOpen(String fileName, List<int> bytes) async {
+    final path = (await getExternalStorageDirectory())!.path;
+    final file = File('$path/$fileName');
+    await file.writeAsBytes(bytes, flush: true);
+    OpenFile.open(file.path);
   }
 
   pw.Widget _letter() {
