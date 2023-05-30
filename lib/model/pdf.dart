@@ -39,8 +39,8 @@ class PDFFileGenerator {
     ));
 
     Uint8List bytes = await pdf.save();
-    await _saveAndOpen('masar_trip_file.pdf', bytes);
-    // Printing.sharePdf(bytes: bytes, filename: 'masar_trip_file.pdf');
+    // await _saveAndOpen('masar_trip_file.pdf', bytes);
+    Printing.sharePdf(bytes: bytes, filename: 'masar_trip_file.pdf');
   }
 
   Future<void> _saveAndOpen(String fileName, List<int> bytes) async {
