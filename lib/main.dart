@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:masar/pages/create_travel_pages/create_travel_page.dart';
-import 'package:masar/pages/home_page.dart';
 import 'package:masar/provider/trip_details_provider.dart';
+import 'package:masar/routing/app_routes.dart';
 import 'package:provider/provider.dart';
 
 void main() {
@@ -14,16 +13,12 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return ChangeNotifierProvider(
       create: (context) => TripDetailsProvider(),
-      child: MaterialApp(
+      child: MaterialApp.router(
+        routerConfig: goRoute,
         title: 'Masarak - مسارك',
         theme: ThemeData(
-    
           primarySwatch: Colors.blue,
         ),
-        home: const HomePage(),
-        routes: {
-          CreateTravelPage.routeName: (_)=> const CreateTravelPage(),
-        },
       ),
     );
   }

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:masar/pages/create_travel_pages/create_travel_page.dart';
+import 'package:go_router/go_router.dart';
+import '../routing/app_routes.dart' as routing;
 
 class HomePage extends StatelessWidget {
   const HomePage({super.key});
@@ -13,9 +14,10 @@ class HomePage extends StatelessWidget {
       ),
       body: Center(
           child: (TextButton(
-              onPressed: () {
-                Navigator.of(context).pushNamed(CreateTravelPage.routeName);
-              },
+              onPressed: () => context.go('/${routing.ctp}'),
+              // onPressed: () {
+              //   Navigator.of(context).pushNamed(CreateTravelPage.routeName);
+              // },
               child: const Text('أنشئ رحلة جديدة')))),
     );
   }
