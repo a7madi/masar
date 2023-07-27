@@ -14,7 +14,7 @@ class HomePage extends StatelessWidget {
       ),
       body: Center(
           child: (TextButton(
-              onPressed: () => context.go('/${routing.ctp}'),
+              onPressed: () => context.go('/ctp'),
               // onPressed: () {
               //   Navigator.of(context).pushNamed(CreateTravelPage.routeName);
               // },

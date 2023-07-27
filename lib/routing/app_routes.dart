@@ -4,25 +4,18 @@ import 'package:masar/pages/create_travel_pages/create_travel_page.dart';
 import 'package:masar/pages/home_page.dart';
 
 const String rootPath = '/';
-const String ctp = 'CreateTravelPage';
 
-final goRoute = GoRouter(
-  initialLocation: rootPath,
-  debugLogDiagnostics: true,
-  routes: [
+enum AppRouting { home, ctp }
+
+final goRoute =
+    GoRouter(initialLocation: '/', debugLogDiagnostics: true, routes: [
+  GoRoute(path: '/', builder: (context, bstate) => const HomePage(), routes: [
     GoRoute(
-      path: rootPath,
-      builder: (context, state) => const HomePage(),
-      routes: [
-        GoRoute(
-          path: ctp,
-          pageBuilder: (context, state) => MaterialPage(
-            key: state.pageKey,
-            fullscreenDialog: true,
-            child: const CreateTravelPage(),
-          ),
-        ),
-      ],
+      path: 'ctp',
+      pageBuilder: (context, state) => MaterialPage(
+          key: state.pageKey,
+          child: const CreateTravelPage(),
+          fullscreenDialog: true),
     ),
-  ],
-);
+  ]),
+]);
