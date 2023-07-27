@@ -53,11 +53,13 @@ class PDFFileGenerator {
   pw.Widget _letter() {
     final company =
         Provider.of<TripDetailsProvider>(_ctx, listen: false).currentTCompany;
+    final tripNumber =
+        Provider.of<TripDetailsProvider>(_ctx, listen: false).trip.tripNumber;
     return pw.Column(crossAxisAlignment: pw.CrossAxisAlignment.end, children: [
       pw.Text('سعادة المسؤول عن اعتماد خط السير بـ${company.companyName}'),
       pw.Text('السلام عليكم ورحمة الله وبركاته'),
       pw.Text(
-          'بعد التحية آمل من سعادتكم إعتماد خط السير حسب الجدول التالي وتوفير عدد (${company.numberOfBuses}) حافلة لنقل الركاب'),
+          'بعد التحية آمل من سعادتكم إعتماد خط السير الموض حسب الجدول التالي للبرنامج رقم (${tripNumber}) وتوفير عدد (${company.numberOfBuses}) حافلة لنقل الركاب'),
     ]);
   }
 

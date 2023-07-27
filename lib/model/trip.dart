@@ -3,6 +3,7 @@
 import 'package:masar/model/destination.dart';
 import 'package:masar/model/transportation_company.dart';
 import 'package:masar/model/trip_owner.dart';
+import 'dart:math';
 
 enum TripStatus { complete, draft }
 
@@ -23,12 +24,21 @@ class Trip {
     _destinations = destinations;
     _tripOwner = tripOwner;
     _tripStatus = tripStatus;
-    _tripNumber = DateTime.now()
-        .toIso8601String(); // سيتم تغيير آلية إنشاء رقم الرحلة لاحقًا
+    _tripNumber = _setTripNumber();
   }
 
   void updateTripStatus(TripStatus newTripsStatus) {
     _tripStatus = newTripsStatus;
+  }
+
+  String _setTripNumber() {
+    const String chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
+    Random random = Random();
+    final first4Char = String.fromCharCodes(Iterable.generate(
+        4, (_) => chars.codeUnitAt(random.nextInt(chars.length))));
+    final sect4Num = String.fromCharCodes(
+        Iterable.generate(3, (_) => '0'.codeUnitAt(0) + random.nextInt(10)));
+    return first4Char + sect4Num;
   }
 
   void addDestination(Destiniation destiniation) {
