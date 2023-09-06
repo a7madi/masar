@@ -1,0 +1,43 @@
+<mxfile host="app.diagrams.net" modified="2023-07-28T15:35:18.243Z" agent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/115.0.0.0 Safari/537.36 Edg/115.0.1901.183" etag="7TBSIkOx3bahIa_19wRw" version="21.6.5" type="device">
+  <diagram name="Page-1" id="3W1BbOlnSLvmhQiqQgh_">
+    <mxGraphModel dx="376" dy="332" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="850" pageHeight="1100" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <mxCell id="L4LuE9ND8O-SA-uUtwgh-1" value="Trip" style="swimlane;childLayout=stackLayout;horizontal=1;startSize=50;horizontalStack=0;rounded=1;fontSize=14;fontStyle=0;strokeWidth=2;resizeParent=0;resizeLast=1;shadow=0;dashed=0;align=center;arcSize=4;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="150" y="400" width="260" height="200" as="geometry" />
+        </mxCell>
+        <mxCell id="L4LuE9ND8O-SA-uUtwgh-2" value="- TripOwner tripOwner (ForeignKeyID);&lt;br&gt;- TCompany tCompany (ForeignKeyID);&lt;br&gt;- String tripNumber (PrimaryKey);&lt;br&gt;- TripStatus tripStatus;&lt;br&gt;- List&amp;lt;Destination&amp;gt; destinations;" style="align=left;strokeColor=none;fillColor=none;spacingLeft=4;fontSize=12;verticalAlign=top;resizable=0;rotatable=0;part=1;html=1;" vertex="1" parent="L4LuE9ND8O-SA-uUtwgh-1">
+          <mxGeometry y="50" width="260" height="150" as="geometry" />
+        </mxCell>
+        <mxCell id="L4LuE9ND8O-SA-uUtwgh-12" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=1;entryY=0.5;entryDx=0;entryDy=0;" edge="1" parent="1" source="L4LuE9ND8O-SA-uUtwgh-3" target="L4LuE9ND8O-SA-uUtwgh-2">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="L4LuE9ND8O-SA-uUtwgh-3" value="TripOwner" style="swimlane;childLayout=stackLayout;horizontal=1;startSize=50;horizontalStack=0;rounded=1;fontSize=14;fontStyle=0;strokeWidth=2;resizeParent=0;resizeLast=1;shadow=0;dashed=0;align=center;arcSize=4;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="480" y="390" width="240" height="200" as="geometry" />
+        </mxCell>
+        <mxCell id="L4LuE9ND8O-SA-uUtwgh-4" value="- String name;&lt;br&gt;- int phoneNumber;&lt;br&gt;- id (primaryKey);" style="align=left;strokeColor=none;fillColor=none;spacingLeft=4;fontSize=12;verticalAlign=top;resizable=0;rotatable=0;part=1;html=1;" vertex="1" parent="L4LuE9ND8O-SA-uUtwgh-3">
+          <mxGeometry y="50" width="240" height="150" as="geometry" />
+        </mxCell>
+        <mxCell id="L4LuE9ND8O-SA-uUtwgh-13" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0.398;entryY=-0.015;entryDx=0;entryDy=0;entryPerimeter=0;" edge="1" parent="1" source="L4LuE9ND8O-SA-uUtwgh-5" target="L4LuE9ND8O-SA-uUtwgh-1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="L4LuE9ND8O-SA-uUtwgh-5" value="TCompany (شركة النقل)" style="swimlane;childLayout=stackLayout;horizontal=1;startSize=50;horizontalStack=0;rounded=1;fontSize=14;fontStyle=0;strokeWidth=2;resizeParent=0;resizeLast=1;shadow=0;dashed=0;align=center;arcSize=4;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="110" y="120" width="250" height="160" as="geometry" />
+        </mxCell>
+        <mxCell id="L4LuE9ND8O-SA-uUtwgh-6" value="- String name&lt;br&gt;- int numOfBuses&lt;br&gt;- id (primaryKey)" style="align=left;strokeColor=none;fillColor=none;spacingLeft=4;fontSize=12;verticalAlign=top;resizable=0;rotatable=0;part=1;html=1;" vertex="1" parent="L4LuE9ND8O-SA-uUtwgh-5">
+          <mxGeometry y="50" width="250" height="110" as="geometry" />
+        </mxCell>
+        <mxCell id="L4LuE9ND8O-SA-uUtwgh-14" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0.001;entryY=0.367;entryDx=0;entryDy=0;entryPerimeter=0;" edge="1" parent="1" source="L4LuE9ND8O-SA-uUtwgh-7" target="L4LuE9ND8O-SA-uUtwgh-2">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="L4LuE9ND8O-SA-uUtwgh-7" value="Destination" style="swimlane;childLayout=stackLayout;horizontal=1;startSize=50;horizontalStack=0;rounded=1;fontSize=14;fontStyle=0;strokeWidth=2;resizeParent=0;resizeLast=1;shadow=0;dashed=0;align=center;arcSize=4;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="170" y="700" width="250" height="160" as="geometry" />
+        </mxCell>
+        <mxCell id="L4LuE9ND8O-SA-uUtwgh-8" value="- String pickPoint;&lt;br&gt;- String dropPoint;&lt;br&gt;- DateTime travelDate;&lt;br&gt;- id (primaryKey);&lt;br&gt;- tripID (forigen key)" style="align=left;strokeColor=none;fillColor=none;spacingLeft=4;fontSize=12;verticalAlign=top;resizable=0;rotatable=0;part=1;html=1;" vertex="1" parent="L4LuE9ND8O-SA-uUtwgh-7">
+          <mxGeometry y="50" width="250" height="110" as="geometry" />
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>

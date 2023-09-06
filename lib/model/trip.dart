@@ -5,7 +5,7 @@ import 'package:masar/model/transportation_company.dart';
 import 'package:masar/model/trip_owner.dart';
 import 'dart:math';
 
-enum TripStatus { complete, draft }
+enum TripStatus { complete, ongoing }
 
 class Trip {
   List<Destiniation> _destinations = [];
@@ -18,7 +18,7 @@ class Trip {
     required TripOwner tripOwner,
     required TCompany tCompany,
     required List<Destiniation> destinations,
-    TripStatus tripStatus = TripStatus.draft,
+    TripStatus tripStatus = TripStatus.ongoing,
   }) {
     _tCompany = tCompany;
     _destinations = destinations;

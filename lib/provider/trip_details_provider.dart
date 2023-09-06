@@ -14,7 +14,7 @@ class TripDetailsProvider with ChangeNotifier {
 
   void initializeNewTrip() {
     _newTrip = Trip(
-      tripStatus: TripStatus.draft,
+      tripStatus: TripStatus.ongoing,
       tripOwner: TripOwner(name: '', phoneNumber: ''),
       tCompany: TCompany(name: '', numberOfBuses: 0),
       destinations: <Destiniation>[],
